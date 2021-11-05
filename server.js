@@ -12,7 +12,6 @@ var rollbar = new Rollbar({
   captureUncaught: true,
   captureUnhandledRejections: true,
 })
-
 // record a generic message and send it to Rollbar
 rollbar.log('Hello world!')
 
@@ -21,12 +20,14 @@ rollbar.log('Hello world!')
 app.use(express.json())
 
 //
-app.get(`/`, function(req, res){
-    res.sendFile(path.join(__dirname, '../public/index.html'))
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './index.html'))
 })
 
 app.get('/api/robots', (req, res) => {
     try {
+        //
+        rollbar.info('request on getting bots')
         res.status(200).send(botsArr)
     } catch (error) {
         console.log('ERROR GETTING BOTS', error)
@@ -79,6 +80,8 @@ app.post('/api/duel', (req, res) => {
 
 app.get('/api/player', (req, res) => {
     try {
+        //
+        rollbar.info('request on player stats')
         res.status(200).send(playerRecord)
     } catch (error) {
         console.log('ERROR GETTING PLAYER STATS', error)
