@@ -13,14 +13,18 @@ var rollbar = new Rollbar({
   captureUnhandledRejections: true,
 })
 // record a generic message and send it to Rollbar
-rollbar.log('Hello world!')
+// rollbar.log('Hello world!')
 
 
 
 app.use(express.json())
 
 //
+app.use(express.static('public'))
+
+//
 app.get('/', (req, res) => {
+    rollbar.info('visited duel duo')
     res.sendFile(path.join(__dirname, './index.html'))
 })
 
@@ -31,6 +35,8 @@ app.get('/api/robots', (req, res) => {
         res.status(200).send(botsArr)
     } catch (error) {
         console.log('ERROR GETTING BOTS', error)
+        ////
+        rollbar.error(`${error} getting bots`)
         res.sendStatus(400)
     }
 })

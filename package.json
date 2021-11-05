@@ -2,9 +2,11 @@
   "name": "rollbar-test",
   "version": "1.0.0",
   "description": "",
-  "main": "public/server.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "jest"
+    
   },
   "keywords": [],
   "author": "",
